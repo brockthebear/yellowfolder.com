@@ -1,31 +1,39 @@
-const withCss = require('@zeit/next-css');
+const withPlugins = require('next-compose-plugins');
+const nextCss = require('@zeit/next-css');
 const withBundleAnalyzer = require('@zeit/next-bundle-analyzer');
+const optimizedImages = require('next-optimized-images');
 
-module.exports = withCss({
-	target: 'serverless',
-	exportTrailingSlash: false,
-	exportPathMap: async function() {
-		const paths = {
-			'/': { page: '/' },
-			'/index.html': { page: '/' },
-			'/about-us.html': { page: '/about-us' },
-			'/contact.html': { page: '/contact' },
-			'/privacy-policy.html': { page: '/privacy-policy' },
-			'/record-request.html': { page: '/record-request' },
-			'/request-success.html': { page: '/request-success' },
-			'/schedule-a-yellow-folder-demo.html': { page: '/schedule-a-yellow-folder-demo' },
-			'/services.html': { page: '/services' },
-			'/weekly-training.html': { page: '/weekly-training' },
-		};
+module.exports = withPlugins([
+	[optimizedImages],
+	[
+		nextCss,
+		{
+			target: 'serverless',
+			exportTrailingSlash: false,
+			exportPathMap: async function() {
+				const paths = {
+					'/': { page: '/' },
+					'/index.html': { page: '/' },
+					'/about-us.html': { page: '/about-us' },
+					'/contact.html': { page: '/contact' },
+					'/privacy-policy.html': { page: '/privacy-policy' },
+					'/record-request.html': { page: '/record-request' },
+					'/request-success.html': { page: '/request-success' },
+					'/schedule-a-yellow-folder-demo.html': { page: '/schedule-a-yellow-folder-demo' },
+					'/services.html': { page: '/services' },
+					'/weekly-training.html': { page: '/weekly-training' },
+				};
 
-		return paths;
-	},
-	webpack: config => {
-		// Fixes npm packages that depend on `fs` module
-		config.node = {
-			fs: 'empty',
-		};
+				return paths;
+			},
+			webpack: config => {
+				// Fixes npm packages that depend on `fs` module
+				config.node = {
+					fs: 'empty',
+				};
 
-		return config;
-	},
-});
+				return config;
+			},
+		},
+	],
+]);
