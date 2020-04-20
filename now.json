@@ -7,7 +7,8 @@
 	},
 	"build": {
 		"env": {
-			"DOMAIN": "yellowfolder.com"
+			"DOMAIN": "yellowfolder.com",
+			"PURECHAT_TOKEN": "@purechat_token"
 		}
 	},
 	"builds": [{ "src": "package.json", "use": "@now/next" }],
