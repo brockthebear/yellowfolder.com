@@ -4,6 +4,9 @@ const withBundleAnalyzer = require('@zeit/next-bundle-analyzer');
 module.exports = withCss({
 	target: 'serverless',
 	exportTrailingSlash: false,
+	env: {
+		PURECHAT_TOKEN: process.env.PURECHAT_TOKEN,
+	},
 	exportPathMap: async function() {
 		const paths = {
 			'/': { page: '/' },

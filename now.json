@@ -2,6 +2,9 @@
 	"name": "yellowfolder.com",
 	"version": 2,
 	"public": false,
+	"env": {
+		"PURECHAT_TOKEN": "@purechat_token"
+	},
 	"build": {
 		"env": {
 			"DOMAIN": "yellowfolder.com"

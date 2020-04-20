@@ -121,7 +121,23 @@ class Page extends Component {
 		const s = document.createElement('script');
 		s.type = 'text/javascript';
 		s.innerHTML = `
-      window.purechatApi = { l: [], t: [], on: function () { this.l.push(arguments); } }; (function () { var done = false; var script = document.createElement('script'); script.async = true; script.type = 'text/javascript'; script.src = 'https://app.purechat.com/VisitorWidget/WidgetScript'; document.getElementsByTagName('HEAD').item(0).appendChild(script); script.onreadystatechange = script.onload = function (e) { if (!done && (!this.readyState || this.readyState == 'loaded' || this.readyState == 'complete')) { var w = new PCWidget({c: '7f32e6c2-448e-4961-9efe-23651fcc41e0', f: true }); done = true; } }; })();
+    function initFreshChat() {
+      window.fcWidget.init({
+      token: ${process.env.PURECHAT_TOKEN},
+      host: "https://wchat.freshchat.com"
+      });
+      }
+      function initialize(i,t){
+      var e;
+      i.getElementById(t) ? initFreshChat() :
+      ((e=i.createElement("script")).id=t,
+      e.async=!0,e.src="https://wchat.freshchat.com/js/widget.js",
+      e.onload=initFreshChat,i.head.appendChild(e))
+      }
+      function initiateCall() {
+        initialize(document,"freshchat-js-sdk")
+      }
+      window.addEventListener ? window.addEventListener("load",initiateCall,!1) : window.attachEvent("load",initiateCall,!1);
     `;
 
 		document.body.appendChild(s);
